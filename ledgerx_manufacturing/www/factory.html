@@ -87,7 +87,7 @@ function api(method, args) {
   Object.keys(args || {}).forEach(function (k) { if (args[k] != null) body.append(k, args[k]); });
   return fetch("/api/method/ledgerx_manufacturing.api." + method, {method: "POST", credentials: "same-origin",
     headers: {"X-Frappe-CSRF-Token": CSRF, "Accept": "application/json"}, body: body}).then(function (r) {
-    return r.json().then(function (j) { if (!r.ok || j.exc || j.exc_type) throw new Error(errText(j)); return j.message; });
+    return r.text().then(function (t) { var j = {}; try { j = JSON.parse(t); } catch (e) { j = {exception: t.slice(0, 200)}; } if (!r.ok || j.exc || j.exc_type) throw new Error(errText(j) + " [" + r.status + "]"); return j.message; });
   });
 }
 function fail(e) { say(e.message || String(e), true); }
