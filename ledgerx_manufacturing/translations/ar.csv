@@ -1,0 +1,154 @@
+Action,الإجراء
+Actual Unit Cost,تكلفة الوحدة الفعلية
+Added to the per-operation switch of the standard Work Order: a Job Card cannot be submitted before an accepted inspection exists.,يُضاف إلى مفتاح التحكم لكل عملية في أمر العمل القياسي: لا يمكن اعتماد بطاقة العمل قبل وجود فحص مقبول.
+BOM,قائمة المواد
+BOM Creator,منشئ قائمة المواد
+BOM Update Tool,أداة تحديث قائمة المواد
+Barcode,باركود
+Barcode Labels,ملصقات الباركود
+Batch,دفعة
+Beep on Every Scan,صفير عند كل مسح
+Company,الشركة
+Complete,إنهاء
+Cutting Waste,هالك القص
+Date,التاريخ
+Default Waste Reason,سبب الهالك الافتراضي
+Description,الوصف
+Disabled,معطّل
+Downtime Analysis,تحليل التوقف
+Downtime Entry,تسجيل التوقف
+Efficiency %,الكفاءة %
+Employee,موظف
+Employee Name,اسم الموظف
+Enter the quantity.,أدخل الكمية.
+Every Job Card Needs an Accepted Quality Inspection,كل بطاقة عمل تحتاج إلى فحص جودة مقبول
+Factory,المصنع
+Factory Settings,إعدادات المصنع
+From Date,من تاريخ
+Good Quantity,الكمية الجيدة
+Home,الرئيسية
+Hours,الساعات
+Item,صنف
+Item Name,اسم الصنف
+Job Card,بطاقة العمل
+Job Card Summary,ملخص بطاقات العمل
+Job Card {0} needs an accepted Quality Inspection before it can be submitted.,بطاقة العمل {0} تحتاج إلى فحص جودة مقبول قبل اعتمادها.
+Job Cards,بطاقات العمل
+Job Cards by Status,بطاقات العمل حسب الحالة
+Jobs in Progress,الأعمال قيد التنفيذ
+Kind,النوع
+Line Barcode,باركود الخط
+Line Efficiency,كفاءة الخط
+Line Name,اسم الخط
+Machine Fault,عطل في الماكينة
+Manufacturing Settings,إعدادات التصنيع
+Master Production Schedule,الجدول الرئيسي للإنتاج
+Material Cost,تكلفة المواد
+Material Defect,عيب في المادة
+Material Issued,المواد المصروفة
+Material Request,طلب مواد
+Needs Rework,يحتاج إعادة تشغيل
+Non Conformance,عدم مطابقة
+Not specified,غير محدد
+Not supported,غير مدعوم
+Note,ملاحظة
+Notes,ملاحظات
+Nothing was scanned.,لم يتم مسح أي شيء.
+Open Job Cards,بطاقات العمل المفتوحة
+Open in Operator Screen,فتح في شاشة المشغّل
+Operating Cost,تكلفة التشغيل
+Operation,عملية
+Operator Error,خطأ من المشغّل
+Operator Must Scan a Badge,يجب أن يمسح المشغّل بطاقة التعريف
+Operator Must Scan the Station,يجب أن يمسح المشغّل باركود المحطة
+Operator Productivity,إنتاجية المشغّل
+Operator Screen,شاشة المشغّل
+Other,أخرى
+Pause,إيقاف مؤقت
+Paused Jobs,الأعمال الموقوفة مؤقتًا
+Planning and Tools,التخطيط والأدوات
+Plant Floor,أرضية المصنع
+Print,طباعة
+Print Barcode Label,طباعة ملصق باركود
+Print Barcode Labels,طباعة ملصقات الباركود
+Produced Quantity,الكمية المنتجة
+Product Received,استلام المنتج
+Production,الإنتاج
+Production Analytics,تحليلات الإنتاج
+Production Cost,تكلفة الإنتاج
+Production Line,خط الإنتاج
+Production Line Station,محطة خط الإنتاج
+Production Plan,خطة الإنتاج
+Production Scan,مسح الإنتاج
+Purchase Order,أمر شراء
+Quality,الجودة
+Quality Action,إجراء الجودة
+Quality Check,مراجعة الجودة
+Quality Feedback,ملاحظات الجودة
+Quality Goal,هدف الجودة
+Quality Inspection,فحص الجودة
+Quality Inspection Summary,ملخص فحوصات الجودة
+Quality Inspection Template,نموذج فحص الجودة
+Quality Meeting,اجتماع الجودة
+Quality Procedure,إجراء الجودة المعتمد
+Quality Review,مراجعة الجودة الدورية
+Quantities cannot be negative.,لا يمكن أن تكون الكميات سالبة.
+Quantity,الكمية
+Reason,السبب
+Rejected Inspections This Month,الفحوصات المرفوضة هذا الشهر
+Related,ذات صلة
+Reports,التقارير
+Resume,استئناف
+Rework,إعادة تشغيل
+Routing,مسار التصنيع
+Sales Forecast,توقعات المبيعات
+Sales Order,أمر بيع
+Scan,مسح
+Scan your employee badge first.,امسح بطاقة الموظف الخاصة بك أولًا.
+Scanned At,وقت المسح
+Scanning,المسح
+Scans Today,عمليات المسح اليوم
+Scans per Day,عمليات المسح يوميًا
+Scrap,هالك
+Scrap %,الهالك %
+Scrap Quantity,كمية الهالك
+Scrap Reports Today,تقارير الهالك اليوم
+Scrap by Reason,الهالك حسب السبب
+Select the rows first.,حدد الصفوف أولًا.
+Sequence,التسلسل
+Setup,التجهيز
+Setup Loss,فاقد التجهيز
+Standard Unit Cost (BOM),تكلفة الوحدة القياسية (قائمة المواد)
+Start,بدء
+Start the job before finishing it.,ابدأ العمل قبل إنهائه.
+Station Barcode,باركود المحطة
+Stations,المحطات
+Stock Entry,قيد مخزون
+Submit the Job Card When the Whole Quantity Is Done,اعتمد بطاقة العمل عند اكتمال الكمية بالكامل
+Supervisor,المشرف
+Target Output per Hour,الإنتاج المستهدف في الساعة
+Target per Hour,المستهدف في الساعة
+The reported quantity is more than what is left on this job.,الكمية المسجلة أكبر من الكمية المتبقية في هذا العمل.
+This job is paused: resume it.,هذا العمل موقوف مؤقتًا: قم باستئنافه.
+To Date,إلى تاريخ
+Total Cost,التكلفة الإجمالية
+Units per Hour,الوحدات في الساعة
+Unknown barcode: {0},باركود غير معروف: {0}
+Used by the Line Efficiency report.,يُستخدم في تقرير كفاءة الخط.
+User,المستخدم
+Variance,الفرق
+Variance %,الفرق %
+Warehouse,المستودع
+Waste Reason,سبب الهالك
+Waste Report,تقرير الهالك
+"When on, a job can only be started after the station barcode was scanned.",عند التفعيل، لا يمكن بدء العمل إلا بعد مسح باركود المحطة.
+"When on, starting a job from the mobile screen needs a scanned employee badge. Off: the signed-in user's employee is used.",عند التفعيل، يتطلب بدء العمل من شاشة الجوال مسح بطاقة الموظف. عند الإيقاف: يُستخدم الموظف المرتبط بالمستخدم المسجّل دخوله.
+Work Order,أمر العمل
+Work Order Summary,ملخص أوامر العمل
+Work Orders In Process,أوامر العمل قيد التنفيذ
+Work Orders Not Started,أوامر العمل التي لم تبدأ
+Work Orders by Status,أوامر العمل حسب الحالة
+Workstation,محطة العمل
+Workstation Type,نوع محطة العمل
+{0} is not a material of this work order.,{0} ليس من مواد أمر العمل هذا.
+{0}: more than the required {1} (already {2}).,{0}: أكثر من المطلوب {1} (تم بالفعل {2}).

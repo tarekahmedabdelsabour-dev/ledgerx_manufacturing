@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "creation": "2026-11-16 08:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "sb_scan",
+  "require_employee_scan",
+  "require_station_scan",
+  "auto_submit_on_complete",
+  "cb1",
+  "default_waste_reason",
+  "scan_sound",
+  "sb_q",
+  "require_quality_on_all"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "sb_scan",
+   "fieldtype": "Section Break",
+   "label": "Scanning"
+  },
+  {
+   "fieldname": "require_employee_scan",
+   "fieldtype": "Check",
+   "label": "Operator Must Scan a Badge",
+   "default": 0,
+   "description": "When on, starting a job from the mobile screen needs a scanned employee badge. Off: the signed-in user's employee is used."
+  },
+  {
+   "fieldname": "require_station_scan",
+   "fieldtype": "Check",
+   "label": "Operator Must Scan the Station",
+   "default": 0,
+   "description": "When on, a job can only be started after the station barcode was scanned."
+  },
+  {
+   "fieldname": "auto_submit_on_complete",
+   "fieldtype": "Check",
+   "label": "Submit the Job Card When the Whole Quantity Is Done",
+   "default": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_waste_reason",
+   "fieldtype": "Link",
+   "label": "Default Waste Reason",
+   "options": "Waste Reason"
+  },
+  {
+   "fieldname": "scan_sound",
+   "fieldtype": "Check",
+   "label": "Beep on Every Scan",
+   "default": 1
+  },
+  {
+   "fieldname": "sb_q",
+   "fieldtype": "Section Break",
+   "label": "Quality"
+  },
+  {
+   "fieldname": "require_quality_on_all",
+   "fieldtype": "Check",
+   "label": "Every Job Card Needs an Accepted Quality Inspection",
+   "default": 0,
+   "description": "Added to the per-operation switch of the standard Work Order: a Job Card cannot be submitted before an accepted inspection exists."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-16 08:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Factory",
+ "name": "Factory Settings",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [
+  {
+   "role": "Factory Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1
+  }
+ ],
+ "icon": "fa fa-industry",
+ "issingle": 1,
+ "allow_rename": 0
+}

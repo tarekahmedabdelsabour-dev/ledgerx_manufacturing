@@ -1,0 +1,562 @@
+{
+ "charts": [
+  {
+   "chart_name": "Job Cards by Status",
+   "label": "Job Cards by Status"
+  },
+  {
+   "chart_name": "Work Orders by Status",
+   "label": "Work Orders by Status"
+  },
+  {
+   "chart_name": "Scans per Day",
+   "label": "Scans per Day"
+  },
+  {
+   "chart_name": "Scrap by Reason",
+   "label": "Scrap by Reason"
+  }
+ ],
+ "content": "[{\"id\": \"4535c71a93\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Factory</b></span>\", \"col\": 12}}, {\"id\": \"08df706f6c\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Work Order\", \"col\": 3}}, {\"id\": \"67c567a26a\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Job Card\", \"col\": 3}}, {\"id\": \"6772a56b4f\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality Inspection\", \"col\": 3}}, {\"id\": \"4b5b16be67\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Production Cost\", \"col\": 3}}, {\"id\": \"ca4b76d356\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Job Cards\", \"col\": 3}}, {\"id\": \"454a59ca97\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Jobs in Progress\", \"col\": 3}}, {\"id\": \"399f9d4ea5\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Paused Jobs\", \"col\": 3}}, {\"id\": \"31b1421749\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Work Orders In Process\", \"col\": 3}}, {\"id\": \"bcfc578afc\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Work Orders Not Started\", \"col\": 3}}, {\"id\": \"3eb1d840e6\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Rejected Inspections This Month\", \"col\": 3}}, {\"id\": \"8a9378c9fb\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Scans Today\", \"col\": 3}}, {\"id\": \"3635ce7d27\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Scrap Reports Today\", \"col\": 3}}, {\"id\": \"05bd586347\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Job Cards by Status\", \"col\": 6}}, {\"id\": \"ad014b1d50\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Work Orders by Status\", \"col\": 6}}, {\"id\": \"2af84c0e52\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Scans per Day\", \"col\": 6}}, {\"id\": \"eef069ad07\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Scrap by Reason\", \"col\": 6}}, {\"id\": \"d54e3736a1\", \"type\": \"card\", \"data\": {\"card_name\": \"Quality\", \"col\": 4}}, {\"id\": \"3500a61dcc\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}, {\"id\": \"161b1304e7\", \"type\": \"card\", \"data\": {\"card_name\": \"Planning and Tools\", \"col\": 4}}, {\"id\": \"c9c69fccda\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}, {\"id\": \"ed3a20ff77\", \"type\": \"card\", \"data\": {\"card_name\": \"Related\", \"col\": 4}}]",
+ "creation": "2026-11-19 07:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 1,
+ "icon": "factory",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Factory",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Quality",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 9,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Quality Inspection",
+   "link_type": "DocType",
+   "link_to": "Quality Inspection",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Non Conformance",
+   "link_type": "DocType",
+   "link_to": "Non Conformance",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Action",
+   "link_type": "DocType",
+   "link_to": "Quality Action",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Goal",
+   "link_type": "DocType",
+   "link_to": "Quality Goal",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Review",
+   "link_type": "DocType",
+   "link_to": "Quality Review",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Feedback",
+   "link_type": "DocType",
+   "link_to": "Quality Feedback",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Meeting",
+   "link_type": "DocType",
+   "link_to": "Quality Meeting",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Procedure",
+   "link_type": "DocType",
+   "link_to": "Quality Procedure",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Inspection Template",
+   "link_type": "DocType",
+   "link_to": "Quality Inspection Template",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Reports",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 9,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Line Efficiency",
+   "link_type": "Report",
+   "link_to": "Line Efficiency",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Waste Report",
+   "link_type": "Report",
+   "link_to": "Waste Report",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Operator Productivity",
+   "link_type": "Report",
+   "link_to": "Operator Productivity",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Production Cost",
+   "link_type": "Report",
+   "link_to": "Production Cost",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Work Order Summary",
+   "link_type": "Report",
+   "link_to": "Work Order Summary",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Job Card Summary",
+   "link_type": "Report",
+   "link_to": "Job Card Summary",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Production Analytics",
+   "link_type": "Report",
+   "link_to": "Production Analytics",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Downtime Analysis",
+   "link_type": "Report",
+   "link_to": "Downtime Analysis",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Quality Inspection Summary",
+   "link_type": "Report",
+   "link_to": "Quality Inspection Summary",
+   "hidden": 0,
+   "is_query_report": 1,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Planning and Tools",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 5,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Master Production Schedule",
+   "link_type": "DocType",
+   "link_to": "Master Production Schedule",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Sales Forecast",
+   "link_type": "DocType",
+   "link_to": "Sales Forecast",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "BOM Creator",
+   "link_type": "DocType",
+   "link_to": "BOM Creator",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "BOM Update Tool",
+   "link_type": "DocType",
+   "link_to": "BOM Update Tool",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Downtime Entry",
+   "link_type": "DocType",
+   "link_to": "Downtime Entry",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Setup",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 11,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Production Line",
+   "link_type": "DocType",
+   "link_to": "Production Line",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Workstation",
+   "link_type": "DocType",
+   "link_to": "Workstation",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Workstation Type",
+   "link_type": "DocType",
+   "link_to": "Workstation Type",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Operation",
+   "link_type": "DocType",
+   "link_to": "Operation",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Routing",
+   "link_type": "DocType",
+   "link_to": "Routing",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Plant Floor",
+   "link_type": "DocType",
+   "link_to": "Plant Floor",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Waste Reason",
+   "link_type": "DocType",
+   "link_to": "Waste Reason",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Item",
+   "link_type": "DocType",
+   "link_to": "Item",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Warehouse",
+   "link_type": "DocType",
+   "link_to": "Warehouse",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Factory Settings",
+   "link_type": "DocType",
+   "link_to": "Factory Settings",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Manufacturing Settings",
+   "link_type": "DocType",
+   "link_to": "Manufacturing Settings",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Card Break",
+   "label": "Related",
+   "hidden": 0,
+   "is_query_report": 0,
+   "link_count": 4,
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "label": "Employee",
+   "link_type": "DocType",
+   "link_to": "Employee",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Material Request",
+   "link_type": "DocType",
+   "link_to": "Material Request",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Purchase Order",
+   "link_type": "DocType",
+   "link_to": "Purchase Order",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  },
+  {
+   "type": "Link",
+   "label": "Sales Order",
+   "link_type": "DocType",
+   "link_to": "Sales Order",
+   "hidden": 0,
+   "is_query_report": 0,
+   "onboard": 0,
+   "dependencies": "",
+   "only_for": ""
+  }
+ ],
+ "title": "Factory",
+ "modified": "2026-11-19 07:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Factory",
+ "name": "Factory",
+ "number_cards": [
+  {
+   "label": "Open Job Cards",
+   "number_card_name": "Open Job Cards"
+  },
+  {
+   "label": "Jobs in Progress",
+   "number_card_name": "Jobs in Progress"
+  },
+  {
+   "label": "Paused Jobs",
+   "number_card_name": "Paused Jobs"
+  },
+  {
+   "label": "Work Orders In Process",
+   "number_card_name": "Work Orders In Process"
+  },
+  {
+   "label": "Work Orders Not Started",
+   "number_card_name": "Work Orders Not Started"
+  },
+  {
+   "label": "Rejected Inspections This Month",
+   "number_card_name": "Rejected Inspections This Month"
+  },
+  {
+   "label": "Scans Today",
+   "number_card_name": "Scans Today"
+  },
+  {
+   "label": "Scrap Reports Today",
+   "number_card_name": "Scrap Reports Today"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 22.0,
+ "shortcuts": [
+  {
+   "label": "Work Order",
+   "link_to": "Work Order",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Job Card",
+   "link_to": "Job Card",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Quality Inspection",
+   "link_to": "Quality Inspection",
+   "type": "DocType",
+   "doc_view": "List"
+  },
+  {
+   "label": "Production Cost",
+   "link_to": "Production Cost",
+   "type": "Report",
+   "is_query_report": 1
+  }
+ ]
+}

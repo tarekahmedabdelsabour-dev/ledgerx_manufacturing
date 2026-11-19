@@ -1,0 +1,22 @@
+{
+ "app": "ledgerx_factory",
+ "creation": "2026-11-19 07:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Dock",
+ "idx": 0,
+ "items": [
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "factory",
+   "link_to": "Factory",
+   "link_type": "Sidebar",
+   "title": "Factory"
+  }
+ ],
+ "modified": "2026-11-19 07:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "factory",
+ "owner": "Administrator",
+ "standard": 1
+}

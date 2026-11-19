@@ -1,0 +1,233 @@
+{% extends "templates/web.html" %}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_content %}
+<style>
+#fx{--bg:#f4f6f8;--card:#fff;--ink:#1c2733;--mute:#6b7785;--brand:#0B5E78;--ok:#0f7a4d;--warn:#b45309;--bad:#b42318;--line:#e3e8ee;--soft:#e3f1f5;
+ font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;color:var(--ink);max-width:640px;margin:0 auto;padding:10px 14px 90px}
+@media(prefers-color-scheme:dark){#fx{--bg:#12181f;--card:#1b242d;--ink:#e8edf2;--mute:#9aa7b4;--line:#2a3541;--brand:#4cc3d9;--soft:#16303a;--ok:#4fd49a;--warn:#f0b35a;--bad:#ff8a7e}}
+body{background:#f4f6f8}@media(prefers-color-scheme:dark){body{background:#12181f}}
+#fx *{box-sizing:border-box}
+#fx .top{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px}
+#fx .top h1{font-size:19px;margin:0}
+#fx .chip{font-size:13px;background:var(--soft);color:var(--brand);border-radius:999px;padding:4px 12px;border:0;cursor:pointer}
+#fx .chip.empty{background:transparent;border:1px dashed var(--line);color:var(--mute)}
+#fx .scanrow{display:flex;gap:8px}
+#fx #scan{flex:1;font-size:20px;padding:14px;border:2px solid var(--brand);border-radius:12px;background:var(--card);color:var(--ink);min-width:0}
+#fx button.btn{font:inherit;font-size:17px;border:0;border-radius:12px;padding:13px 16px;background:var(--brand);color:#fff;cursor:pointer}
+#fx button.btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+#fx button.btn.ok{background:var(--ok)}#fx button.btn.warn{background:var(--warn)}
+#fx button.btn[disabled]{opacity:.5}
+#fx .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+#fx .msg{margin:10px 0;padding:10px 14px;border-radius:10px;font-size:15px}
+#fx .msg.ok{background:#e4f6ec;color:#0b5b39}#fx .msg.err{background:#fdecea;color:#8f1c12}
+@media(prefers-color-scheme:dark){#fx .msg.ok{background:#16302a;color:#8fe3bd}#fx .msg.err{background:#3b1a17;color:#ffb3aa}}
+#fx .big{font-size:22px;font-weight:700}#fx .mut{color:var(--mute);font-size:14px}
+#fx .bar{height:14px;border-radius:7px;background:var(--line);overflow:hidden;margin:8px 0}
+#fx .bar>i{display:block;height:100%;background:var(--ok)}
+#fx .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#fx .grid .btn{width:100%}
+#fx .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+#fx .row:last-child{border:0}
+#fx .tag{font-size:12px;border-radius:6px;padding:2px 8px;background:var(--soft);color:var(--brand)}
+#fx .tag.wip{background:#fff3d6;color:#8a5a00}#fx .tag.done{background:#e4f6ec;color:#0b5b39}
+#fx label{display:block;font-size:14px;color:var(--mute);margin:10px 0 4px}
+#fx input.num,#fx select{width:100%;font-size:20px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+#fx .list a{display:block;padding:12px;border:1px solid var(--line);border-radius:12px;margin:8px 0;color:inherit;text-decoration:none;background:var(--card)}
+#fx video{width:100%;border-radius:12px;background:#000;max-height:50vh}
+</style>
+<div id="fx" dir="auto">
+ <div class="top"><h1 id="t-title"></h1><div><button class="chip empty" id="op"></button> <button class="chip empty" id="st"></button></div></div>
+ <div class="scanrow"><input id="scan" autocomplete="off" autocapitalize="off" autofocus><button class="btn sec" id="cam" title="camera">&#128247;</button></div>
+ <div id="msg"></div>
+ <div id="cam-box" style="display:none"><video id="vid" playsinline muted></video><button class="btn sec" id="cam-x" style="margin-top:8px;width:100%"></button></div>
+ <div id="main"></div>
+ <div class="card" id="recent-card" style="display:none"><div class="mut" id="t-recent"></div><div id="recent"></div></div>
+</div>
+<script>
+(function () {
+var CSRF = "{{ csrf_token }}", LANG = "{{ lang_code }}", BEEP = {{ beep }};
+var T = {
+ ar: {title: "شاشة المشغّل", scan: "امسح الباركود", op: "الموظف", st: "المحطة", op_none: "بدون موظف", st_none: "بدون محطة",
+  hint: "امسح بطاقة العمل (Job Card) أو أمر العمل، أو باركود المحطة أو الموظف.", unknown: "باركود غير معروف", operator_set: "الموظف: ", station_set: "المحطة: ",
+  start: "بدء", pause: "إيقاف مؤقت", resume: "استئناف", finish: "إنهاء / تسجيل الكمية", quality: "فحص الجودة", qty: "الكمية السليمة", scrap: "الهالك", reason: "سبب الهالك",
+  save: "تسجيل", cancel: "إلغاء", done: "تم", of: "من", pending: "المتبقي", open_jobs: "أوامر الشغل المفتوحة", stations: "محطات الخط", submitted: "تم اعتماد بطاقة العمل",
+  needs_q: "يلزم فحص جودة مقبول قبل الاعتماد", materials: "الخامات", required: "المطلوب", issued: "تم صرفه", scanned: "تم مسحه", post_issue: "تسجيل صرف الخامات", receive: "استلام منتج تام",
+  receive_qty: "الكمية المستلمة", posted: "تم التسجيل: ", job_cards: "بطاقات العمل", wo: "أمر تصنيع", jc: "بطاقة العمل", recent: "آخر عمليات المسح", no_cam: "الكاميرا غير مدعومة في هذا المتصفح",
+  close: "إغلاق الكاميرا", status: "الحالة", item_scanned: "تم مسح: ", open_qi: "فتح فحص الجودة", paused: "متوقف مؤقتًا", err: "خطأ", operators: "على التشغيل",
+  Start: "بدء", Pause: "إيقاف", Resume: "استئناف", Complete: "إنهاء", "Material Issued": "صرف خامة", "Product Received": "استلام منتج", "Quality Check": "فحص جودة"},
+ en: {title: "Operator Screen", scan: "Scan a barcode", op: "Operator", st: "Station", op_none: "No operator", st_none: "No station",
+  hint: "Scan a Job Card or Work Order, or a station or employee barcode.", unknown: "Unknown barcode", operator_set: "Operator: ", station_set: "Station: ",
+  start: "Start", pause: "Pause", resume: "Resume", finish: "Finish / Report Quantity", quality: "Quality Check", qty: "Good quantity", scrap: "Scrap", reason: "Scrap reason",
+  save: "Save", cancel: "Cancel", done: "Done", of: "of", pending: "Left", open_jobs: "Open job cards", stations: "Line stations", submitted: "Job Card submitted",
+  needs_q: "An accepted quality inspection is needed before submitting", materials: "Materials", required: "Required", issued: "Issued", scanned: "Scanned", post_issue: "Post Material Issue", receive: "Receive Finished Product",
+  receive_qty: "Received quantity", posted: "Posted: ", job_cards: "Job Cards", wo: "Work Order", jc: "Job Card", recent: "Recent scans", no_cam: "Camera scanning is not supported by this browser",
+  close: "Close camera", status: "Status", item_scanned: "Scanned: ", open_qi: "Open Quality Inspection", paused: "Paused", err: "Error", operators: "Working",
+  Start: "Start", Pause: "Pause", Resume: "Resume", Complete: "Complete", "Material Issued": "Material Issued", "Product Received": "Product Received", "Quality Check": "Quality Check"}
+};
+var L = T[LANG === "ar" ? "ar" : "en"];
+var $ = function (i) { return document.getElementById(i); };
+var S = {op: null, opName: "", st: null, view: null, doc: null, reasons: []};
+try { S.op = sessionStorage.getItem("fx_op"); S.opName = sessionStorage.getItem("fx_opn") || ""; S.st = sessionStorage.getItem("fx_st"); } catch (e) {}
+function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function num(n) { return Math.round((+n || 0) * 100) / 100; }
+function beep(ok) {
+  try { if (navigator.vibrate) navigator.vibrate(ok ? 40 : [80, 60, 80]); } catch (e) {}
+  if (!BEEP) return;
+  try { var c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain();
+    o.frequency.value = ok ? 1000 : 300; o.connect(g); g.connect(c.destination); g.gain.value = 0.08; o.start(); setTimeout(function () { o.stop(); c.close(); }, ok ? 90 : 260); } catch (e) {}
+}
+function say(text, err) { $("msg").innerHTML = text ? '<div class="msg ' + (err ? "err" : "ok") + '">' + esc(text) + "</div>" : ""; beep(!err); }
+function errText(j) {
+  try { if (j._server_messages) { var m = JSON.parse(j._server_messages).map(function (x) { return JSON.parse(x).message; }); return m.join(" ").replace(/<[^>]+>/g, " "); } } catch (e) {}
+  return (j.exception || j.exc_type || L.err).toString().replace(/<[^>]+>/g, " ");
+}
+function api(method, args) {
+  var body = new URLSearchParams();
+  Object.keys(args || {}).forEach(function (k) { if (args[k] != null) body.append(k, args[k]); });
+  return fetch("/api/method/ledgerx_manufacturing.api." + method, {method: "POST", credentials: "same-origin",
+    headers: {"X-Frappe-CSRF-Token": CSRF, "Accept": "application/json"}, body: body}).then(function (r) {
+    return r.json().then(function (j) { if (!r.ok || j.exc || j.exc_type) throw new Error(errText(j)); return j.message; });
+  });
+}
+function fail(e) { say(e.message || String(e), true); }
+
+function chips() {
+  $("op").textContent = L.op + ": " + (S.opName || L.op_none); $("op").className = "chip" + (S.op ? "" : " empty");
+  $("st").textContent = L.st + ": " + (S.st || L.st_none); $("st").className = "chip" + (S.st ? "" : " empty");
+}
+$("op").onclick = function () { S.op = null; S.opName = ""; try { sessionStorage.removeItem("fx_op"); sessionStorage.removeItem("fx_opn"); } catch (e) {} chips(); };
+$("st").onclick = function () { S.st = null; try { sessionStorage.removeItem("fx_st"); } catch (e) {} chips(); home(); };
+
+function home() {
+  S.view = "home"; S.doc = null;
+  if (!S.st) { $("main").innerHTML = '<div class="card mut">' + esc(L.hint) + "</div>"; return; }
+  api("station_jobs", {workstation: S.st}).then(function (jobs) {
+    $("main").innerHTML = '<div class="mut" style="margin-top:12px">' + esc(L.open_jobs) + " - " + esc(S.st) + '</div><div class="list">' + (jobs.map(jobLink).join("") || '<div class="card mut">-</div>') + "</div>";
+    bindJobLinks();
+  }).catch(fail);
+}
+function jobLink(j) {
+  return '<a href="#" data-jc="' + esc(j.name) + '"><b>' + esc(j.item_name || j.item) + "</b> <span class='tag " + (j.status === "Work In Progress" ? "wip" : "") + "'>" + esc(j.status) + "</span><div class='mut'>" +
+    esc(j.name) + " - " + esc(j.operation || "") + " - " + num(j.done) + " " + L.of + " " + num(j.for_quantity) + "</div></a>";
+}
+function bindJobLinks() { [].forEach.call(document.querySelectorAll("[data-jc]"), function (a) { a.onclick = function (e) { e.preventDefault(); openJob(a.dataset.jc); }; }); }
+
+function openJob(name) {
+  api("job", {job_card: name}).then(showJob).catch(fail);
+}
+function showJob(j) {
+  S.view = "job"; S.doc = j;
+  var pct = j.for_quantity ? Math.min(100, (j.done / j.for_quantity) * 100) : 0, b = "";
+  var btn = {start: ["ok", L.start], pause: ["warn", L.pause], resume: ["ok", L.resume], finish: ["", L.finish]};
+  (j.actions || []).forEach(function (a) { b += '<button class="btn ' + btn[a][0] + '" data-act="' + a + '">' + esc(btn[a][1]) + "</button>"; });
+  var qi = j.quality_required || j.quality_inspection ? '<button class="btn sec" data-act="quality">' + esc(L.quality) + (j.quality_status ? " (" + esc(j.quality_status) + ")" : "") + "</button>" : "";
+  $("main").innerHTML = '<div class="card"><div class="mut">' + esc(L.jc) + " " + esc(j.name) + (j.work_order ? ' - <a href="#" data-wo="' + esc(j.work_order) + '">' + esc(j.work_order) + "</a>" : "") + "</div>" +
+    '<div class="big">' + esc(j.item_name || j.item) + '</div><div class="mut">' + esc(j.operation || "") + " - " + esc(j.workstation || "") + (j.line ? " - " + esc(j.line) : "") + "</div>" +
+    '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
+    "<div>" + L.done + ": <b>" + num(j.done) + "</b> " + L.of + " <b>" + num(j.for_quantity) + "</b> &nbsp; " + L.pending + ": <b>" + num(j.pending) + "</b>" + (j.loss ? " &nbsp; " + L.scrap + ": <b>" + num(j.loss) + "</b>" : "") + "</div>" +
+    '<div class="mut">' + L.status + ": " + esc(j.is_paused ? L.paused : j.status) + (j.operators && j.operators.length ? " - " + L.operators + ": " + esc(j.operators.join(", ")) : "") + "</div>" +
+    '<div class="grid" id="acts">' + b + qi + '</div><div id="finish"></div></div>';
+  [].forEach.call($("acts").querySelectorAll("[data-act]"), function (el) { el.onclick = function () { act(el.dataset.act); }; });
+  var w = document.querySelector("[data-wo]"); if (w) w.onclick = function (e) { e.preventDefault(); openWO(w.dataset.wo); };
+  loadRecent();
+}
+function act(a) {
+  var j = S.doc;
+  if (a === "start" || a === "pause" || a === "resume") {
+    api(a, {job_card: j.name, employee: S.op}).then(function (r) { say(L[a] + " - " + j.name); showJob(r); }).catch(fail);
+  } else if (a === "finish") {
+    var rs = (S.reasons || []).map(function (r) { return '<option>' + esc(r) + "</option>"; }).join("");
+    $("finish").innerHTML = "<label>" + L.qty + '</label><input class="num" id="f-q" type="number" step="any" inputmode="decimal" value="' + num(j.pending) + '">' +
+      "<label>" + L.scrap + '</label><input class="num" id="f-s" type="number" step="any" inputmode="decimal" value="0">' +
+      "<label>" + L.reason + "</label><select id='f-r'><option></option>" + rs + "</select>" +
+      '<div class="grid"><button class="btn ok" id="f-ok">' + L.save + '</button><button class="btn sec" id="f-no">' + L.cancel + "</button></div>";
+    $("f-no").onclick = function () { $("finish").innerHTML = ""; };
+    $("f-ok").onclick = function () {
+      $("f-ok").disabled = true;
+      api("finish", {job_card: j.name, qty: $("f-q").value || 0, scrap: $("f-s").value || 0, reason: $("f-r").value, employee: S.op}).then(function (r) {
+        var m = r.submitted ? L.submitted : L.done; if (r.message) m = (r.needs_quality ? L.needs_q + ": " : "") + r.message.replace(/<[^>]+>/g, " ");
+        say(m, !!r.message); showJob(r.job);
+      }).catch(function (e) { $("f-ok").disabled = false; fail(e); });
+    };
+  } else if (a === "quality") {
+    api("quality", {job_card: j.name}).then(function (r) {
+      $("finish").innerHTML = '<div class="msg ok"><a target="_blank" href="/desk/quality-inspection/' + encodeURIComponent(r.name) + '">' + esc(L.open_qi) + " - " + esc(r.name) + "</a></div>"; openJobQuiet(j.name);
+    }).catch(fail);
+  }
+}
+function openJobQuiet(n) { api("job", {job_card: n}).then(function (j) { S.doc = j; }); }
+
+function openWO(name) { api("work_order", {work_order: name}).then(showWO).catch(fail); }
+function showWO(w) {
+  S.view = "wo"; S.doc = w;
+  var rows = w.items.map(function (r) {
+    return '<div class="row"><div><b>' + esc(r.item_name || r.item_code) + '</b><div class="mut">' + esc(r.item_code) + "</div></div><div style='text-align:end'>" + L.required + " " + num(r.required) +
+      "<br>" + L.issued + " " + num(r.transferred) + (r.scanned ? "<br><b>" + L.scanned + " " + num(r.scanned) + "</b>" : "") + "</div></div>";
+  }).join("");
+  var jcs = w.job_cards.map(function (j) { return '<a href="#" data-jc="' + esc(j.name) + '"><b>' + esc(j.operation || j.name) + "</b> <span class='tag'>" + esc(j.status) + "</span><div class='mut'>" + esc(j.name) + " - " + esc(j.workstation || "") + "</div></a>"; }).join("");
+  $("main").innerHTML = '<div class="card"><div class="mut">' + esc(L.wo) + " " + esc(w.name) + " - " + esc(w.status) + '</div><div class="big">' + esc(w.item_name || w.item) + "</div>" +
+    "<div>" + num(w.produced) + " " + L.of + " " + num(w.qty) + '</div><div class="bar"><i style="width:' + (w.qty ? Math.min(100, w.produced / w.qty * 100) : 0) + '%"></i></div></div>' +
+    '<div class="card"><div class="mut">' + esc(L.materials) + "</div>" + rows + '<div class="grid"><button class="btn" id="w-post">' + esc(L.post_issue) + "</button></div></div>" +
+    '<div class="card"><label>' + L.receive_qty + '</label><input class="num" id="w-q" type="number" step="any" inputmode="decimal" value="' + num(Math.max(w.qty - w.produced, 0)) + '"><div class="grid"><button class="btn ok" id="w-rcv">' + esc(L.receive) + "</button></div></div>" +
+    (jcs ? '<div class="mut">' + esc(L.job_cards) + '</div><div class="list">' + jcs + "</div>" : "");
+  bindJobLinks();
+  $("w-post").onclick = function () { api("post_issue", {work_order: w.name}).then(function (r) { say(L.posted + r.stock_entry); openWO(w.name); }).catch(fail); };
+  $("w-rcv").onclick = function () { api("receive_product", {work_order: w.name, qty: $("w-q").value}).then(function (r) { say(L.posted + r.stock_entry); openWO(w.name); }).catch(fail); };
+  loadRecent();
+}
+
+function onScan(code) {
+  code = (code || "").trim(); if (!code) return;
+  api("resolve", {code: code}).then(function (r) {
+    if (!r.type) return say(L.unknown + ": " + code, true);
+    if (r.type === "Employee") { S.op = r.name; S.opName = r.label; try { sessionStorage.setItem("fx_op", S.op); sessionStorage.setItem("fx_opn", S.opName); } catch (e) {} chips(); say(L.operator_set + r.label); }
+    else if (r.type === "Workstation") { S.st = r.name; try { sessionStorage.setItem("fx_st", S.st); } catch (e) {} chips(); say(L.station_set + r.name); home(); }
+    else if (r.type === "Production Line") {
+      api("line_stations", {production_line: r.name}).then(function (st) {
+        $("main").innerHTML = '<div class="mut" style="margin-top:12px">' + esc(L.stations) + " - " + esc(r.label) + '</div><div class="list">' + st.map(function (x) { return '<a href="#" data-st="' + esc(x.workstation) + '"><b>' + esc(x.workstation) + "</b> <span class='tag'>" + x.open_jobs + "</span></a>"; }).join("") + "</div>";
+        [].forEach.call(document.querySelectorAll("[data-st]"), function (a) { a.onclick = function (e) { e.preventDefault(); onScan(a.dataset.st); }; });
+      }).catch(fail);
+    }
+    else if (r.type === "Job Card") { say(L.jc + " " + r.name); openJob(r.name); }
+    else if (r.type === "Work Order") { say(L.wo + " " + r.name); openWO(r.name); }
+    else if (r.type === "Item") {
+      if (S.view === "wo" && S.doc) api("issue_material", {work_order: S.doc.name, code: code}).then(function (m) { say(L.item_scanned + m.item_name + " (" + num(m.scanned) + " / " + num(m.required) + ")"); openWO(S.doc.name); }).catch(fail);
+      else say(L.item_scanned + r.label);
+    }
+  }).catch(fail);
+}
+$("scan").addEventListener("keydown", function (e) { if (e.key === "Enter") { var v = $("scan").value; $("scan").value = ""; onScan(v); } });
+document.addEventListener("click", function (e) { if (!/INPUT|SELECT|BUTTON|A|VIDEO/.test(e.target.tagName)) $("scan").focus(); });
+
+/* camera */
+var stream = null, timer = null;
+function stopCam() { if (timer) clearInterval(timer); timer = null; if (stream) stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; $("cam-box").style.display = "none"; }
+$("cam").onclick = function () {
+  if (!("BarcodeDetector" in window) || !navigator.mediaDevices) return say(L.no_cam, true);
+  var det = new BarcodeDetector({formats: ["code_128", "code_39", "qr_code", "ean_13", "ean_8", "upc_a", "upc_e"]});
+  navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}}).then(function (s) {
+    stream = s; $("vid").srcObject = s; $("vid").play(); $("cam-box").style.display = "block";
+    timer = setInterval(function () { det.detect($("vid")).then(function (c) { if (c.length) { var v = c[0].rawValue; stopCam(); onScan(v); } }).catch(function () {}); }, 400);
+  }).catch(function () { say(L.no_cam, true); });
+};
+$("cam-x").onclick = stopCam;
+
+function loadRecent() {
+  api("recent", {limit: 8}).then(function (rows) {
+    $("recent-card").style.display = rows.length ? "block" : "none";
+    $("recent").innerHTML = rows.map(function (r) {
+      return '<div class="row"><span>' + esc(L[r.action] || r.action) + " " + esc(r.job_card || r.work_order || "") + "</span><span class='mut'>" + (r.qty ? num(r.qty) : "") + (r.scrap_qty ? " / " + num(r.scrap_qty) : "") + "</span></div>";
+    }).join("");
+  }).catch(function () {});
+}
+
+$("t-title").textContent = L.title; $("scan").placeholder = L.scan; $("t-recent").textContent = L.recent; $("cam-x").textContent = L.close;
+document.documentElement.dir = LANG === "ar" ? "rtl" : "ltr";
+fetch('/api/resource/Waste%20Reason?fields=["name"]&limit_page_length=100', {credentials: "same-origin"}).then(function (r) { return r.json(); }).then(function (j) { S.reasons = (j.data || []).map(function (x) { return x.name; }); }).catch(function () {});
+chips(); home(); loadRecent();
+var q = new URLSearchParams(location.search).get("code"); if (q) onScan(q);
+$("scan").focus();
+})();
+</script>
+{% endblock %}
