@@ -125,7 +125,7 @@ def line_stations(production_line):
 		for r in sorted(line.stations, key=lambda x: cint(x.sequence))]
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def start(job_card, employee=None):
 	jc = _jc(job_card, "write")
 	emp = _operator(employee)
@@ -137,7 +137,7 @@ def start(job_card, employee=None):
 	return _overview(_jc(job_card))
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def pause(job_card, employee=None):
 	jc = _jc(job_card, "write")
 	jc.pause_job(end_time=now_datetime())
@@ -145,7 +145,7 @@ def pause(job_card, employee=None):
 	return _overview(_jc(job_card))
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def resume(job_card, employee=None):
 	jc = _jc(job_card, "write")
 	jc.resume_job(start_time=now_datetime())
@@ -153,7 +153,7 @@ def resume(job_card, employee=None):
 	return _overview(_jc(job_card))
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def finish(job_card, qty, scrap=0, reason=None, employee=None):
 	"""Report good and scrap quantity. The Job Card is submitted when the whole quantity is done."""
 	jc = _jc(job_card, "write")
@@ -188,7 +188,7 @@ def finish(job_card, qty, scrap=0, reason=None, employee=None):
 	return out
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def quality(job_card):
 	"""Open (or create) the In Process quality inspection of a job card."""
 	jc = _jc(job_card, "write")
@@ -236,7 +236,7 @@ def work_order(work_order):
 	}
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def issue_material(work_order, code, qty=1):
 	"""Scan a raw material for a work order. Nothing is posted yet: post_issue() creates the Stock Entry."""
 	wo = _wo(work_order, "write")
@@ -255,7 +255,7 @@ def issue_material(work_order, code, qty=1):
 	return {"item_code": item, "item_name": row.item_name, "required": flt(row.required_qty), "scanned": already + qty - flt(row.transferred_qty), "transferred": flt(row.transferred_qty)}
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def post_issue(work_order):
 	"""Turn the scanned materials into a submitted 'Material Transfer for Manufacture' Stock Entry."""
 	from erpnext.manufacturing.doctype.work_order.work_order import make_stock_entry
@@ -280,7 +280,7 @@ def post_issue(work_order):
 	return {"stock_entry": se.name}
 
 
-@frappe.whitelist()
+@frappe.whitelist(methods=["POST"])
 def receive_product(work_order, qty):
 	"""Book the finished product: a submitted 'Manufacture' Stock Entry for `qty`."""
 	from erpnext.manufacturing.doctype.work_order.work_order import make_stock_entry
