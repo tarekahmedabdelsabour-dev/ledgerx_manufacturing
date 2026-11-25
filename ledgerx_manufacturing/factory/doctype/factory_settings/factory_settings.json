@@ -107,5 +107,6 @@
  ],
  "icon": "fa fa-industry",
  "issingle": 1,
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }

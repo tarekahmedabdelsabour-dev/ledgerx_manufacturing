@@ -80,5 +80,6 @@
  ],
  "autoname": "field:reason",
  "icon": "fa fa-trash-o",
- "allow_rename": 0
+ "allow_rename": 0,
+ "track_changes": 1
 }
