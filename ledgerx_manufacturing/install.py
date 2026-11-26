@@ -78,6 +78,7 @@ def ensure_settings():
 	if not s.default_waste_reason and frappe.db.exists("Waste Reason", "Other"):
 		s.default_waste_reason, changed = "Other", True
 	if changed:
+		s.flags.ignore_mandatory = True  # the accounts are chosen later, in the settings form
 		s.save(ignore_permissions=True)
 
 
